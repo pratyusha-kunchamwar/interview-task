@@ -15,6 +15,7 @@ const StudentTable = ({ students, handleEdit, handleDelete }) => {
     >
       {" "}
       <table style={{ width: "85%", borderCollapse: "collapse" }}>
+        {/* header */}
         <thead>
           <tr style={{ borderBottom: "2px solid #ccc" }}>
             <th style={style.tableHeader}>Student No.</th>
@@ -25,6 +26,7 @@ const StudentTable = ({ students, handleEdit, handleDelete }) => {
             <th style={style.tableHeader}>Actions</th>
           </tr>
         </thead>
+        {/* body */}
         <tbody>
           {students.length === 0 ? (
             <tr>

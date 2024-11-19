@@ -1,71 +1,32 @@
 "use client";
-import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import { Button } from "@mui/material";
 
 import StudentForm from "../components/StudentForm";
 import StudentTable from "../components/StudentTable";
 import StudentDelete from "../components/StudentDelete";
+import studentsApi from "@/services/studentsApi";
 
 const Homepage = () => {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const { students, error, addStudents, editTheStudents, deleteTheStudents } =
+    studentsApi(API_URL);
 
   const [open, setOpen] = useState(false);
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+
   const [formData, setFormData] = useState({
     name: "",
     gender: "",
     roll_no: "",
     branch: "",
   });
-  const [students, setStudents] = useState([]);
-  const [error, setError] = useState("");
   const [isEditMode, setIsEditMode] = useState(false);
-  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [studentToDelete, setStudentToDelete] = useState(null);
   const [message, setMessage] = useState("");
 
-  // api calling
-  const getStudents = async () => {
-    try {
-      let response = await axios.get(API_URL);
-      setStudents(response.data);
-    } catch (error) {
-      setError(error);
-    }
-  };
-  //add students
-  const addStudents = async (formData) => {
-    try {
-      await axios.post(API_URL, formData);
-      getStudents();
-    } catch (error) {
-      setError(error);
-    }
-  };
-  //edit students
-  const editTheStudents = async (id) => {
-    try {
-      await axios.patch(`${API_URL}${id}`, formData);
-      getStudents();
-    } catch (error) {
-      setError(error);
-    }
-  };
-  //delete students
-  const deleteTheStudents = async (id) => {
-    try {
-      await axios.delete(`${API_URL}${id}`);
-      getStudents();
-    } catch (error) {
-      setError(error);
-    }
-  };
-  useEffect(() => {
-    getStudents();
-  }, []);
-
-  // handlers
+  //handlers
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -96,13 +57,13 @@ const Homepage = () => {
         setMessage("");
       }
     }
-
     setFormData({ ...formData, [name]: value });
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isEditMode) {
-      editTheStudents(formData.roll_no);
+      editTheStudents(formData.roll_no, formData);
     } else {
       addStudents(formData);
     }

@@ -19,11 +19,18 @@ const StudentForm = ({
   handleFormData,
   handleSubmit,
   isEdit,
-  message
+  message,
 }) => {
   return (
     <Dialog open={open} onClose={handleClose}>
-       {message && <div className="message" style={{marginTop:"1rem",color:"#f44336"}}>{message}</div>}
+      {message && (
+        <div
+          className="message"
+          style={{ marginTop: "1rem", color: "#f44336" }}
+        >
+          {message}
+        </div>
+      )}
       <form onSubmit={handleSubmit}>
         <DialogTitle>Add Student</DialogTitle>
         <DialogContent
@@ -34,6 +41,7 @@ const StudentForm = ({
             width: "30rem",
           }}
         >
+          {/* name */}
           <TextField
             sx={{ marginTop: "0.5rem" }}
             label="Name"
@@ -43,7 +51,6 @@ const StudentForm = ({
             fullWidth
             required
           />
-
           {/* Gender */}
           <FormControl fullWidth required>
             <InputLabel>Gender</InputLabel>
@@ -58,7 +65,6 @@ const StudentForm = ({
               <MenuItem value="Other">Other</MenuItem>
             </Select>
           </FormControl>
-
           {/* roll num*/}
           <TextField
             required
@@ -70,7 +76,6 @@ const StudentForm = ({
             style={isEdit ? { pointerEvents: "none" } : {}}
           />
           <span>{!isEdit && "Enter number only "}</span>
-
           {/* Branch */}
           <FormControl fullWidth required>
             <InputLabel>Branch</InputLabel>
@@ -86,7 +91,7 @@ const StudentForm = ({
             </Select>
           </FormControl>
         </DialogContent>
-
+        {/* Buttons */}
         <DialogActions>
           <Button onClick={handleClose} variant="contained" color="primary">
             Cancel

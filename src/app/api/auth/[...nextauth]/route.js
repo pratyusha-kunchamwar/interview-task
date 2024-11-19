@@ -21,8 +21,6 @@ export const authOptions = {
         token.accessToken = account.access_token;
         token.id_token = account.id_token;
         token.expires_at = account.expires_at;
-        token.refresh_token = account.refresh_token;
-        token.userProp = account.userProp;
         return token;
       } else if (nowTimeStamp < token.expires_at) {
         return token;
@@ -32,7 +30,6 @@ export const authOptions = {
       }
     },
     async session({ session, token }) {
-      session.access_token = encrypt(token.accessToken);
       session.id_token = encrypt(token.id_token);
       session.roles = token.decode.realm_access.roles;
       return session;
