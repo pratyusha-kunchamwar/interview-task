@@ -83,7 +83,7 @@ const Homepage = () => {
   //for student data
   const handleFormData = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+
     if (name === "roll_no") {
       const existingStudent = students.find(
         (student) => student.roll_no == value
@@ -92,8 +92,12 @@ const Homepage = () => {
         setMessage(
           `This roll number ${value} already exists. Please enter another.`
         );
+      } else {
+        setMessage("");
       }
     }
+
+    setFormData({ ...formData, [name]: value });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
