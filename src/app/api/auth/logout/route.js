@@ -1,6 +1,7 @@
 import { authOptions } from "../[...nextauth]/route";
 import { getServerSession } from "next-auth";
-import { getIdToken } from  "@/utils/sessionTokenAccessor";
+import { getIdToken } from "@/utils/sessionTokenAccessor";
+import axios from "axios";
 
 export async function GET() {
   const session = await getServerSession(authOptions);
@@ -15,11 +16,12 @@ export async function GET() {
     )}`;
 
     try {
-      const resp = await fetch(url, { method: "GET" });
+      await axios.get(url);
     } catch (err) {
-      console.error(err);
-      return new Response({ status: 500 });
+      return new Response(null, { status: 500 });
     }
   }
   return new Response({ status: 200 });
 }
+
+export default GET;

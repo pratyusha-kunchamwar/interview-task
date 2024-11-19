@@ -1,14 +1,15 @@
 "use client";
+import axios from "axios";
 import { signOut } from "next-auth/react";
 import { Button } from "@mui/material";
 
-async function keycloakSessionLogOut() {
+const keycloakSessionLogOut = async () => {
   try {
-    await fetch(`/api/auth/logout`, { method: "GET" });
+    const response = await axios.get("/api/auth/logout");
   } catch (err) {
-    console.error(err);
+    console.error("Error logging out:", err);
   }
-}
+};
 
 const Logout = () => {
   return (

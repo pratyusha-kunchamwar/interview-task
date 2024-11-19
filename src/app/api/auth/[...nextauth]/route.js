@@ -15,7 +15,7 @@ export const authOptions = {
   callbacks: {
     async jwt({ token, account }) {
       const nowTimeStamp = Math.floor(Date.now() / 100);
-      // console.log(token);
+
       if (account) {
         token.decode = jwtDecode(account.access_token);
         token.accessToken = account.access_token;
@@ -32,7 +32,6 @@ export const authOptions = {
       }
     },
     async session({ session, token }) {
-      console.log({ id: token.id_token, token: token.decode.realm_access });
       session.access_token = encrypt(token.accessToken);
       session.id_token = encrypt(token.id_token);
       session.roles = token.decode.realm_access.roles;
