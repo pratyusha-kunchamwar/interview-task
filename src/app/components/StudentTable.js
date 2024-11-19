@@ -13,6 +13,7 @@ const StudentTable = ({ students, handleEdit, handleDelete }) => {
         alignItems: "center",
       }}
     >
+      {" "}
       <table style={{ width: "85%", borderCollapse: "collapse" }}>
         <thead>
           <tr style={{ borderBottom: "2px solid #ccc" }}>
@@ -24,7 +25,6 @@ const StudentTable = ({ students, handleEdit, handleDelete }) => {
             <th style={style.tableHeader}>Actions</th>
           </tr>
         </thead>
-
         <tbody>
           {students.length === 0 ? (
             <tr>

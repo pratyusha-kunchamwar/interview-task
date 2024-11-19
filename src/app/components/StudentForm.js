@@ -19,9 +19,11 @@ const StudentForm = ({
   handleFormData,
   handleSubmit,
   isEdit,
+  message
 }) => {
   return (
     <Dialog open={open} onClose={handleClose}>
+       {message && <div className="message" style={{marginTop:"1rem",color:"#f44336"}}>{message}</div>}
       <form onSubmit={handleSubmit}>
         <DialogTitle>Add Student</DialogTitle>
         <DialogContent
@@ -67,6 +69,7 @@ const StudentForm = ({
             fullWidth
             style={isEdit ? { pointerEvents: "none" } : {}}
           />
+          <span>{!isEdit && "Enter number only "}</span>
 
           {/* Branch */}
           <FormControl fullWidth required>
