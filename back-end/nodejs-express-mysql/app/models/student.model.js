@@ -1,6 +1,6 @@
 const sql = require("./db.js");
 
-// to map student data
+// student data
 const Student = function (student) {
   this.roll_no = student.roll_no;
   this.name = student.name;
