@@ -4,7 +4,7 @@ import Login from "./components/Login";
 import Logout from "./components/Logout";
 import Homepage from "./homePage/page";
 
-const MYApp = () => {
+const MyApp = () => {
   const { data: session, status } = useSession();
 
   if (status === "loading") {
@@ -34,4 +34,4 @@ const MYApp = () => {
   );
 };
 
-export default MYApp;
+export default MyApp;
