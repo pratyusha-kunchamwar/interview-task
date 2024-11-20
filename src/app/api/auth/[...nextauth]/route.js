@@ -25,13 +25,14 @@ export const authOptions = {
       } else if (nowTimeStamp < token.expires_at) {
         return token;
       } else {
-        console.log("token expiring");
+        console.log("token expiring"); 
+        
         return token;
       }
     },
     async session({ session, token }) {
       session.id_token = encrypt(token.id_token);
-      session.roles = token.decode.realm_access.roles;
+      // session.roles = token.decode.realm_access.roles;
       return session;
     },
   },
