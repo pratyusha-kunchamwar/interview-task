@@ -1,8 +1,8 @@
 "use client";
 import { useSession } from "next-auth/react";
-import Login from "./components/Login";
-import Logout from "./components/Logout";
-import Homepage from "./homePage/page";
+import LogIn from "./components/LogIn";
+import LogOut from "./components/LogOut";
+import HomePage from "./homePage/page";
 
 const MyApp = () => {
   const { data: session, status } = useSession();
@@ -21,15 +21,15 @@ const MyApp = () => {
           }}
         >
           <h5>{session?.user?.name || "User"}</h5>
-          <Logout />
+          <LogOut />
         </div>
-        <Homepage />
+        <HomePage />
       </div>
     );
   }
   return (
     <div>
-      <Login />
+      <LogIn />
     </div>
   );
 };

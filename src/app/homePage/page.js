@@ -8,7 +8,7 @@ import StudentTable from "../components/StudentTable";
 import StudentDelete from "../components/StudentDelete";
 import studentsApi from "@/services/studentsApi";
 
-const Homepage = () => {
+const HomePage = () => {
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const { students, error, addStudents, editTheStudents, deleteTheStudents } =
     studentsApi(API_URL);
@@ -138,4 +138,4 @@ const Homepage = () => {
   );
 };
 
-export default Homepage;
+export default HomePage;
