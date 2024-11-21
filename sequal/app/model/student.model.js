@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = require("./db.js");
 
-// Define the Student model
+// student model
 const Student = sequelize.define(
   "Student",
   {
@@ -37,7 +37,7 @@ Student.getAll = async () => {
   }
 };
 
-// Add a new student
+// add a new student
 Student.add = async (newStudent) => {
   try {
     return await Student.create(newStudent);
@@ -49,11 +49,11 @@ Student.add = async (newStudent) => {
 // update student
 Student.updateStudent = async (roll_no, updatedData) => {
   try {
-    const [updatedRows] = await Student.update(updatedData, {
+    const updatedRows = await Student.update(updatedData, {
       where: { roll_no },
     });
 
-    if (updatedRows === 0) {
+    if (updatedRows[0] === 0) {
       throw { kind: "notfound" };
     }
 
@@ -73,7 +73,6 @@ Student.delete = async (roll_no) => {
     if (deletedRows === 0) {
       throw { kind: "notfound" };
     }
-
     return { message: "Student deleted successfully" };
   } catch (err) {
     throw err;

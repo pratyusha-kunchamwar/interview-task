@@ -3,11 +3,11 @@ const Student = require("../model/student.model");
 // get all students
 exports.getAllStudents = async (req, res) => {
   try {
-    const students = await Student.findAll();
+    const students = await Student.getAll();
     res.send(students);
   } catch (err) {
     res.status(500).send({
-      message: err.message || "Some error occurred while retrieving students.",
+      message: err.message || "Some error occurred while retrieving students",
     });
   }
 };
@@ -18,16 +18,16 @@ exports.addStudent = async (req, res) => {
 
   if (!name || !gender || !roll_no || !branch) {
     return res.status(400).send({
-      message: "Content cannot be empty! All fields are required.",
+      message: "All fields are required.",
     });
   }
 
   try {
-    const newStudent = await Student.create({ name, gender, roll_no, branch });
+    const newStudent = await Student.add({ name, gender, roll_no, branch }); // Calling the model's add method
     res.send(newStudent);
   } catch (err) {
     res.status(500).send({
-      message: err.message || "Error occurred while creating the student.",
+      message: err.message || "Error while creating the student.",
     });
   }
 };
@@ -44,49 +44,40 @@ exports.updateStudent = async (req, res) => {
   }
 
   try {
-    const [updatedRows] = await Student.update(
-      { name, branch, gender },
-      { where: { roll_no } }
-    );
+    const updatedStudent = await Student.updateStudent(roll_no, {
+      name,
+      branch,
+      gender,
+    });
 
-    if (updatedRows === 0) {
+    res.send(updatedStudent);
+  } catch (err) {
+    if (err.kind === "notfound") {
       return res.status(404).send({
         message: `Student with roll_no ${roll_no} not found.`,
       });
     }
-
-    const updatedStudent = await Student.findOne({ where: { roll_no } });
-    res.send(updatedStudent);
-  } catch (err) {
     res.status(500).send({
-      message:
-        err.message || "Some error occurred while updating the student.",
+      message: err.message || "Some error occurred while updating the student.",
     });
   }
 };
 
-// delete 
+// delete student
 exports.deleteStudent = async (req, res) => {
   const roll_no = req.params.roll_no;
 
   try {
-    const deletedRows = await Student.destroy({
-      where: { roll_no },
-    });
-
-    if (deletedRows === 0) {
+    const result = await Student.delete(roll_no);
+    res.send(result);
+  } catch (err) {
+    if (err.kind === "notfound") {
       return res.status(404).send({
         message: `Student with roll_no ${roll_no} not found.`,
       });
     }
-
-    res.send({
-      message: `Student with roll_no ${roll_no} was deleted successfully!`,
-    });
-  } catch (err) {
     res.status(500).send({
-      message:
-        err.message || "Some error occurred while deleting the student.",
+      message: err.message || "Some error occurred while deleting the student.",
     });
   }
 };
