@@ -1,5 +1,13 @@
 const sql = require("./db.js");
-Student = {};
+
+// student data
+const Student = function (student) {
+  this.roll_no = student.roll_no;
+  this.name = student.name;
+  this.branch = student.branch;
+  this.gender = student.gender;
+};
+
 // get all students
 Student.getAll = (result) => {
   sql.query("SELECT * FROM students", (err, res) => {
@@ -38,10 +46,12 @@ Student.update = (roll_no, student, result) => {
         result(null, err);
         return;
       }
+
       if (res.affectedRows == 0) {
         result({ kind: "notfound" }, null);
         return;
       }
+
       result(null, { roll_no: roll_no, ...student });
     }
   );
@@ -58,6 +68,7 @@ Student.delete = (roll_no, result) => {
       result({ kind: "notfound" }, null);
       return;
     }
+
     result(null, res);
   });
 };

@@ -1,5 +1,6 @@
 const Student = require("../models/student.model");
 
+
 // get all students
 exports.getAllStudents = (req, res) => {
   Student.getAll((err, data) => {

@@ -9,10 +9,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// app.get("/", (req, res) => {
-//   res.json({ message: "Welcome to the Student API application." });
-// });
-
 // student routes
 const studentRoutes = require("./app/routes/student.routes.js");
 app.use("/", studentRoutes);
